@@ -22,6 +22,11 @@ describe('Thermostat', function(){
     it('should have a maximum temperature', function(){
       expect(thermostat.maximumTemperature()).toEqual(25);
     });
+
+    it('can reset the temperature to 20 degrees', function(){
+      thermostat.increaseTemperature();
+      expect(thermostat.resetTemperature()).toEqual(20);
+    });
   });
 
   describe('changing temperature', function(){
@@ -76,6 +81,23 @@ describe('Thermostat', function(){
       thermostat.togglePowerOff();
       thermostat.increaseTemperatureBy(12);
       expect(thermostat.increaseTemperature()).toEqual(32);
+    });
+  });
+
+  describe('displaying colors', function(){
+    it('green if less than 18 degrees', function(){
+      thermostat.decreaseTemperatureBy(3);
+      expect(thermostat.colorDisplay()).toEqual('green');
+    });
+
+    it('red if more than 25', function(){
+      thermostat.togglePowerOff;
+      thermostat.increaseTemperatureBy(6);
+      expect(thermostat.colorDisplay()).toEqual('red');
+    });
+
+    it('yellow if between 19 and 24', function(){
+      expect(thermostat.colorDisplay()).toEqual('yellow');
     });
   });
 });
