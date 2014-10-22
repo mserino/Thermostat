@@ -9,6 +9,9 @@ Thermostat.prototype.increaseTemperature = function() {
 
 Thermostat.prototype.increaseTemperatureBy = function(degrees) {
 	this.temperature += degrees;
+	if (this.temperature > this.maximumTemperature()) {
+		this.temperature = this.maximumTemperature();
+	}
 };
 
 Thermostat.prototype.decreaseTemperature = function() {

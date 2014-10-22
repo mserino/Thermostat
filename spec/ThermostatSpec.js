@@ -33,10 +33,16 @@ describe('Thermostat', function(){
     it('has a maximum temperature of 25 degrees', function(){
       expect(thermostat.maximumTemperature()).toEqual(25);
     });
+
+    it('when power saver on cannot increase the temperature more than 25 degrees', function(){
+      thermostat.increaseTemperatureBy(6);
+      expect(thermostat.temperature).toEqual(25);
+    });
   });
 
   describe('custom options', function(){
     it('can increase the temperature by 12', function(){
+      thermostat.isPowerSaverOn = false;
       thermostat.increaseTemperatureBy(12);
       expect(thermostat.temperature).toEqual(32);
     });
