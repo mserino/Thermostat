@@ -9,3 +9,9 @@ Thermostat
 - There is a power saving mode
 - Power saving mode is on by default
 - If power saving mode is on, the maximum temperature is 25 degrees
+- If power saving mode is off, the maximum temperature is 32 degrees
+- You can reset the temperature to 20 by hitting the reset button
+- The thermostat should color the display based on energy usage
+- < 18 is green
+- < 25 is orange
+- otherwise is red
