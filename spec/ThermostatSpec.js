@@ -56,5 +56,17 @@ describe('Thermostat', function(){
       thermostat.isPowerSaverOn = false;
       expect(thermostat.maximumTemperature()).toEqual(32);
     });
+
+    it('when power saver off cannot increase the temperature more than 32', function(){
+      thermostat.isPowerSaverOn = false;
+      thermostat.increaseTemperatureBy(15);
+      expect(thermostat.temperature).toEqual(32);
+    });
+
+    it('can reset the temperature to 20 degrees', function(){
+      thermostat.increaseTemperatureBy(2);
+      thermostat.resetTemperature();
+      expect(thermostat.temperature).toEqual(20);
+    });
   });
 });

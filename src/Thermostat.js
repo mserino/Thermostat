@@ -27,9 +27,9 @@ Thermostat.prototype.minimumTemperature = function() {
 };
 
 Thermostat.prototype.maximumTemperature = function() {
-	if (this.isPowerSaverOn) {
-		return 25
-	} else {
-		return 32
-	}
+	return (this.isPowerSaverOn) ? 25 : 32
+};
+
+Thermostat.prototype.resetTemperature = function() {
+	this.temperature = 20;
 };
