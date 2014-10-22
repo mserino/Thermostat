@@ -2,71 +2,80 @@
 
 describe('Thermostat', function(){
   var thermostat;
-
   beforeEach(function(){
-    thermostat = new Thermostat();
+    thermostat = new Thermostat;
   });
 
   describe('by default', function(){
-    it('is set at 20 degrees', function(){
+    it('starts at 20 degrees', function(){
       expect(thermostat.temperature).toEqual(20);
     });
 
-    it('power saving mode will be on', function(){
-      expect(thermostat.isPowerSaverOn).toBe(true);
+    it('has the power save mode set to on', function(){
+      expect(thermostat.powerSaveMode).toBe(true);
     });
 
-    it('can increase the temperature by one degree', function(){
+    it('should have a minimum temperature', function(){
+      expect(thermostat.minimumTemperature()).toEqual(10);
+    });
+
+    it('should have a maximum temperature', function(){
+      expect(thermostat.maximumTemperature()).toEqual(25);
+    });
+  });
+
+  describe('changing temperature', function(){
+    it('can increase the temperature by 1', function(){
       thermostat.increaseTemperature();
       expect(thermostat.temperature).toEqual(21);
     });
 
-    it('can decrease the temperature by one degree', function(){
+    it('can increase the temperature by 3', function(){
+      thermostat.increaseTemperatureBy(3);
+      expect(thermostat.temperature).toEqual(23);
+    });
+
+    it('can decrease the temperature by 1', function(){
       thermostat.decreaseTemperature();
       expect(thermostat.temperature).toEqual(19);
     });
 
-    it('has a minimum temperature of 10 degrees', function(){
-      expect(thermostat.minimumTemperature()).toEqual(10);
-    });
-
-    it('has a maximum temperature of 25 degrees', function(){
-      expect(thermostat.maximumTemperature()).toEqual(25);
-    });
-
-    it('when power saver on cannot increase the temperature more than 25 degrees', function(){
-      thermostat.increaseTemperatureBy(6);
-      expect(thermostat.temperature).toEqual(25);
+    it('can decrease the temperature by 3', function(){
+      thermostat.decreaseTemperatureBy(3);
+      expect(thermostat.temperature).toEqual(17);
     });
   });
 
-  describe('custom options', function(){
-    it('can increase the temperature by 12', function(){
-      thermostat.isPowerSaverOn = false;
-      thermostat.increaseTemperatureBy(12);
-      expect(thermostat.temperature).toEqual(32);
+  describe('toggling power save mode', function(){
+    it('power save mode can be toggled off', function(){
+      expect(thermostat.togglePowerOff()).toBe(false);
     });
 
-    it('can decrease the temperature by 10', function(){
-      thermostat.decreaseTemperatureBy(10);
-      expect(thermostat.temperature).toEqual(10);
+    it('power save mode can be toggled on', function(){
+      expect(thermostat.togglePowerOn()).toBe(true);
     });
+  });
 
-    it('maximum temperature is 32 if power saver mode off', function(){
-      thermostat.isPowerSaverOn = false;
+  describe('maximum and minimum temperatures', function(){
+    it('maximum temperature is set at 32 if power save mode is off', function(){
+      thermostat.togglePowerOff();
       expect(thermostat.maximumTemperature()).toEqual(32);
     });
 
-    it('when power saver off cannot increase the temperature more than 32', function(){
-      thermostat.isPowerSaverOn = false;
-      thermostat.increaseTemperatureBy(15);
-      expect(thermostat.temperature).toEqual(32);
+    it('cannot decrease more than 10 degrees', function(){
+      thermostat.decreaseTemperatureBy(10);
+      expect(thermostat.decreaseTemperature()).toEqual(10);
     });
 
-    it('can reset the temperature to 20 degrees', function(){
-      thermostat.increaseTemperatureBy(2);
-      thermostat.resetTemperature();
-      expect(thermostat.temperature).toEqual(20);
+    it('cannot increase more than 25 if the power save mode is on', function(){
+      thermostat.increaseTemperatureBy(5);
+      expect(thermostat.increaseTemperature()).toEqual(25);
+    });
+
+    it('cannot increase more than 32 if the power save mode is off', function(){
+      thermostat.togglePowerOff();
+      thermostat.increaseTemperatureBy(12);
+      expect(thermostat.increaseTemperature()).toEqual(32);
     });
   });
 });
