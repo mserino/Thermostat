@@ -25,6 +25,14 @@ describe('Thermostat', function(){
       thermostat.decreaseTemperature();
       expect(thermostat.temperature).toEqual(19);
     });
+
+    it('has a minimum temperature of 10 degrees', function(){
+      expect(thermostat.minimumTemperature()).toEqual(10);
+    });
+
+    it('has a maximum temperature of 25 degrees', function(){
+      expect(thermostat.maximumTemperature()).toEqual(25);
+    });
   });
 
   describe('custom options', function(){
@@ -36,6 +44,11 @@ describe('Thermostat', function(){
     it('can decrease the temperature by 10', function(){
       thermostat.decreaseTemperatureBy(10);
       expect(thermostat.temperature).toEqual(10);
+    });
+
+    it('maximum temperature is 32 if power saver mode off', function(){
+      thermostat.isPowerSaverOn = false;
+      expect(thermostat.maximumTemperature()).toEqual(32);
     });
   });
 });

@@ -18,3 +18,15 @@ Thermostat.prototype.decreaseTemperature = function() {
 Thermostat.prototype.decreaseTemperatureBy = function(degrees) {
 	this.temperature -= degrees;
 };
+
+Thermostat.prototype.minimumTemperature = function() {
+	return 10;
+};
+
+Thermostat.prototype.maximumTemperature = function() {
+	if (this.isPowerSaverOn) {
+		return 25
+	} else {
+		return 32
+	}
+};
