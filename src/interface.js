@@ -5,6 +5,7 @@ function ThermostatView(element){
 	this.bindTo('.increase_temperature', this.thermostat, this.thermostat.increaseTemperature);
 	this.bindTo('.decrease_temperature', this.thermostat, this.thermostat.decreaseTemperature);
 	this.bindTo('.reset', this.thermostat, this.thermostat.resetTemperature);
+	this.checkChange('#power_mode', this.thermostat, this.thermostat.togglePowerMode);
 };
 
 ThermostatView.prototype.bindTo = function(selector, obj, func) {
@@ -13,16 +14,12 @@ ThermostatView.prototype.bindTo = function(selector, obj, func) {
 	});
 };
 
+ThermostatView.prototype.checkChange = function(selector, obj, func) {
+	$(selector).on('change', function(){
+		func.call(obj);
+	});
+};
+
 $(document).ready(function(){
 	new ThermostatView('.temperature h1');
-
-	// $('.temperature h1').text(thermostat.temperature);
-
-	// $('.increase_temperature h1').on('click', function(){
-	// 	$('.temperature h1').text(thermostat.increaseTemperature());
-	// });
-
-	// $('.decrease_temperature h1').on('click', function(){
-	// 	$('.temperature h1').text(thermostat.decreaseTemperature());
-	// })
 });
