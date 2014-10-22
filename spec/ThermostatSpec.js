@@ -20,5 +20,22 @@ describe('Thermostat', function(){
       thermostat.increaseTemperature();
       expect(thermostat.temperature).toEqual(21);
     });
+
+    it('can decrease the temperature by one degree', function(){
+      thermostat.decreaseTemperature();
+      expect(thermostat.temperature).toEqual(19);
+    });
+  });
+
+  describe('custom options', function(){
+    it('can increase the temperature by 12', function(){
+      thermostat.increaseTemperatureBy(12);
+      expect(thermostat.temperature).toEqual(32);
+    });
+
+    it('can decrease the temperature by 10', function(){
+      thermostat.decreaseTemperatureBy(10);
+      expect(thermostat.temperature).toEqual(10);
+    });
   });
 });
